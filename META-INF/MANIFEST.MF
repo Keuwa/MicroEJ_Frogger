@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Application-Id: Frogger
+Application-Version: 0.1.0
+Application-PrintableName: Frogger
+Application-Description: Frogger
+Application-Activities: com.frogger.Program
