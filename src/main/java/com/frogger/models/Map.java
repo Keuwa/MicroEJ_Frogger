@@ -22,5 +22,8 @@ public class Map {
 		}
 		lanes.add(new FinishLane());
 	}
-
+	
+	public ArrayList<Lane> getLanes() {
+		return lanes;
+	}
 }

@@ -35,7 +35,7 @@ public class GamePage extends Page{
 		// init params
 		splitGame = new Split(true,0.75f);
 		list = new List(false);
-		game = new Game(10);
+		game = new Game(6, 4);
 		score = new Label("");
 		life = new Label("");
 		back = new Button("Back");

@@ -1,7 +1,9 @@
 package com.frogger.game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import com.frogger.models.Lane;
 import com.frogger.models.Map;
 
 import ej.microui.display.Colors;
@@ -26,12 +28,12 @@ public class Game extends Widget implements Element {
 	Map map;
 	Random random;
 	
-	public Game(int nbLigne) {
+	public Game(int nbLigneRoad, int nbLigneWater) {
 		super();
 		random = new Random();
-		int nbRoad = random.nextInt(nbLigne/2)+1;
+		//int nbRoad = random.nextInt(nbLigne/2)+1;
 		map = new Map();
-		map.initMap(nbRoad, nbLigne-nbRoad);
+		map.initMap(nbLigneRoad, nbLigneWater);
 		System.out.println("mochi");
 	}
 
@@ -113,12 +115,30 @@ public class Game extends Widget implements Element {
 
 	@Override
 	public void render(GraphicsContext g) {
-		System.out.println("mooooo");
-
 		//GetRelative pour avoir la position par raport a la ou est le widget
-		g.setBackgroundColor(Colors.BLUE);
-		g.setColor(Colors.NAVY);
-		g.fillRect(0, 0, Gwidth, Gheight);
+		ArrayList<Lane> lanes =  map.getLanes();
+		int i = 1;
+		for (Lane lane : lanes) {
+			String className = lane.getClass().getSimpleName();
+			System.out.print(className);
+			if(className.equals("RoadLane")) {
+				g.setColor(Colors.GRAY);
+			}
+			else if(className.equals("SafeLane")) {
+				g.setColor(Colors.GREEN);
+			}
+			else if(className.equals("WaterLane")) {
+				g.setColor(Colors.BLUE);
+			}
+			else if(className.equals("FinishLane")) {
+				g.setColor(Colors.MAGENTA);
+			}
+			g.fillRect(0, Gheight - Gheight/lanes.size()*i , Gwidth, Gheight/lanes.size());
+			i++;
+		}
+		//g.setBackgroundColor(Colors.BLUE);
+		//g.setColor(Colors.NAVY);
+		//g.fillRect(0, 0, Gwidth, Gheight);
 		System.out.print("render");
 
 	}
