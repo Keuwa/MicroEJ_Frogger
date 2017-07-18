@@ -14,8 +14,6 @@ public class ScoreList {
 	
 	private ScoreList() {
 		// TODO Auto-generated constructor stub
-		this.addScore(1);
-		this.addScore(2);
 	}
 	
 	public void addScore(int _score){

@@ -116,39 +116,55 @@ public class Game extends Widget implements Element {
 	public void render(GraphicsContext g) {
 		if (getLife() <= 0) {
 			// LOOSE
-			g.fillRect(0, 0, Game.Gwidth,  Game.Gheight);
-
-			// use White color to render text
-			g.setColor(Colors.WHITE);
-			final Font sourceSansPro = Font.getFont(Font.LATIN, 24, Font.STYLE_PLAIN);		
-			g.setFont(sourceSansPro);
-
-			g.drawString("You lose !", Game.Gwidth / 2, Game.Gheight / 2,
-					GraphicsContext.HCENTER | GraphicsContext.VCENTER);
-
-			
+			renderLoose(g);			
 		}else if(map.getFrog().isArrived()){
-			if(!finalScore){
-				score *= map.getFrog().getLife();
-				ScoreList scoreList = ScoreList.getInstance();
-				scoreList.addScore(score);
-				finalScore = true;
-			}
-			g.fillRect(0, 0, Game.Gwidth,  Game.Gheight);
-
-			// use White color to render text
-			g.setColor(Colors.WHITE);
-			final Font sourceSansPro = Font.getFont(Font.LATIN, 24, Font.STYLE_PLAIN);		
-			g.setFont(sourceSansPro);
-
-			g.drawString("You win ! Youre score is : " + score, Game.Gwidth / 2, Game.Gheight / 2,
-					GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+			renderWin(g);
 		}
 		else {
 			map.draw(g);
 		}
 	}
 	
+	private void renderWin(GraphicsContext g) {
+		if(!finalScore) {
+			score *= (map.getFrog().getLife() * 5);
+			ScoreList scoreList = ScoreList.getInstance();
+			scoreList.addScore(score);
+			finalScore = true;
+		}
+		
+		g.fillRect(0, 0, Game.Gwidth,  Game.Gheight);
+
+		// use White color to render text
+		g.setColor(Colors.WHITE);
+		final Font sourceSansPro = Font.getFont(Font.LATIN, 24, Font.STYLE_PLAIN);		
+		g.setFont(sourceSansPro);
+
+		g.drawString("You win ! Your score is : " + score, Game.Gwidth / 2, Game.Gheight / 2,
+				GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		
+	}
+
+
+	private void renderLoose(GraphicsContext g) {
+		if(!finalScore) {
+			ScoreList scoreList = ScoreList.getInstance();
+			scoreList.addScore(score);
+			finalScore = true;
+		}
+		
+		g.fillRect(0, 0, Game.Gwidth,  Game.Gheight);
+
+		// use White color to render text
+		g.setColor(Colors.WHITE);
+		final Font sourceSansPro = Font.getFont(Font.LATIN, 24, Font.STYLE_PLAIN);		
+		g.setFont(sourceSansPro);
+
+		g.drawString("You lose !", Game.Gwidth / 2, Game.Gheight / 2,
+				GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+	}
+
+
 	@Override
 	public void validate(int widthHint, int heightHint) {
 		// TODO Auto-generated method stub
