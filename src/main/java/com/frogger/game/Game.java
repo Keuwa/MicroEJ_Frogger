@@ -1,16 +1,10 @@
 package com.frogger.game;
 
-import java.util.ArrayList;
 import java.util.Random;
-
-import com.frogger.models.Lane;
 import com.frogger.models.Map;
-
-import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
 import ej.microui.event.EventGenerator;
-import ej.microui.event.generator.Buttons;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.Widget;
 import ej.style.Element;
@@ -18,23 +12,21 @@ import ej.style.State;
 
 public class Game extends Widget implements Element {
 
-	static int MIN_HEIGHT = 100;
-	static int MIN_WIDTH = 100;
-	int Gheight;
-	int Gwidth;
+	public static int MIN_HEIGHT = 100;
+	public static int MIN_WIDTH = 100;
+	public static int Gheight;
+	public static int Gwidth;
 	int jumps = 0;
 	int score = 0;
-	int life = 3;
+	int originY = 0;
+	int newY = 0;
 	Map map;
-	Random random;
+	public static Random random = new Random();
 	
 	public Game(int nbLigneRoad, int nbLigneWater) {
 		super();
-		random = new Random();
-		//int nbRoad = random.nextInt(nbLigne/2)+1;
-		map = new Map();
-		map.initMap(nbLigneRoad, nbLigneWater);
-		System.out.println("mochi");
+		
+		map = new Map(nbLigneRoad, nbLigneWater);
 	}
 
 
@@ -63,100 +55,54 @@ public class Game extends Widget implements Element {
 
 
 	public int getLife() {
-		return life;
+		return map.getFrog().getLife();
 	}
 
-
-
-	public void setLife(int life) {
-		this.life = life;
-	}
-
-
-
+	
 	public Map getMap() {
 		return map;
 	}
-
 
 
 	public void setMap(Map map) {
 		this.map = map;
 	}
 
-
-
-	public Random getRandom() {
-		return random;
-	}
-
-
-
-	public void setRandom(Random random) {
-		this.random = random;
-	}
-
-
-
 	@Override
 	public boolean handleEvent(int event) {
-		System.out.println("mi");
-
-		// TODO Auto-generated method stub
-		System.out.print("yoloo");
+		//System.out.println("event");
+		
 		if(Event.getType(event) == Event.POINTER){
 			Pointer p = (Pointer)EventGenerator.get(Event.getGeneratorID(event));
-			if(Buttons.getAction(event) == Pointer.DRAGGED){
-				System.out.print("dragged");
+
+			if (Pointer.isPressed(event) == true) {
+				originY = p.getAbsoluteY();
+			}
+
+			
+			if(Pointer.isReleased(event) == true) {
+				newY = p.getAbsoluteY();
+				
+				if(originY - newY > 100) {
+					map.moveFrogUp();
+				} 
+				else if (newY - originY > 100) {
+					map.moveFrogDown();
+				}
 			}
 		}
 		return false;
 	}
 
+
 	@Override
 	public void render(GraphicsContext g) {
-		//GetRelative pour avoir la position par raport a la ou est le widget
-		ArrayList<Lane> lanes =  map.getLanes();
-		int i = 1;
-		for (Lane lane : lanes) {
-			String className = lane.getClass().getSimpleName();
-			System.out.print(className);
-			if(className.equals("RoadLane")) {
-				g.setColor(Colors.GRAY);
-			}
-			else if(className.equals("SafeLane")) {
-				g.setColor(Colors.GREEN);
-			}
-			else if(className.equals("WaterLane")) {
-				g.setColor(Colors.BLUE);
-			}
-			else if(className.equals("FinishLane")) {
-				g.setColor(Colors.MAGENTA);
-			}
-			g.fillRect(0, Gheight - Gheight/lanes.size()*i , Gwidth, Gheight/lanes.size());
-			i++;
+		if (getLife() <= 0) {
+			// FIN DU GAME
+		} 
+		else {
+			map.draw(g);
 		}
-		//g.setBackgroundColor(Colors.BLUE);
-		//g.setColor(Colors.NAVY);
-		//g.fillRect(0, 0, Gwidth, Gheight);
-		System.out.print("render");
-
-	}
-
-	public void drawLine(String type){
-		
-	}
-	
-	public void drawCar(){
-		
-	}
-	
-	public void drawWood(){
-		
-	}
-	
-	public void drawFrog(){
-		
 	}
 	
 	@Override
@@ -171,9 +117,8 @@ public class Game extends Widget implements Element {
 		super.setBounds(x, y, width, height);
 		Gwidth = width;
 		Gheight = height;
+		map.initMap();
 	}
-	
-	
 	
 	@Override
 	public boolean hasClassSelector(String classSelector) {

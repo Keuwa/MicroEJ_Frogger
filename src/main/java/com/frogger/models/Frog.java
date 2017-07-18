@@ -1,40 +1,71 @@
 package com.frogger.models;
 
+import java.io.IOException;
+
 import com.frogger.utils.Position;
 
+import ej.microui.display.GraphicsContext;
+import ej.microui.display.Image;
+
 public class Frog {
-	Position pos;
+	Position position = new Position();
 	int life = 5;
 	boolean bonusLife = false;
-	public Frog() {
+	Image img;
+	
+	public Frog() throws IOException {
 		// TODO Auto-generated constructor stub
+		img = Image.createImage("/images/frog_idle.png");
 	}
 	
 	
-	public Frog(Position pos, int life) {
+	public Frog(int _life,int x,int y) {
 		super();
-		this.pos = pos;
-		this.life = life;
+		position.setX(x);
+		position.setY(y);
+		life = _life;
 	}
 
 
-	public Position getPos() {
-		return pos;
+	public Position getPosition() {
+		return position;
 	}
-	public void setPos(Position pos) {
-		this.pos = pos;
+
+
+	public void setPosition(int x, int y) {
+		position.setX(x);
+		position.setY(y);
 	}
+
+
+	public Image getImg() {
+		return img;
+	}
+
+
+	public void setImg(Image img) {
+		this.img = img;
+	}
+
 	public int getLife() {
 		return life;
 	}
-	public void setLife(int life) {
-		this.life = life;
+	public void setLife(int _life) {
+		life = _life;
 	}
 	public boolean isBonusLife() {
 		return bonusLife;
 	}
 	public void setBonusLife(boolean bonusLife) {
 		this.bonusLife = bonusLife;
+	}
+	
+	public void looseLife() {
+		life = life > 1 ? life-1 : 0;
+	}
+	
+	public void draw(GraphicsContext g) {
+		g.drawImage(img,position.getX(), position.getY(), GraphicsContext.TOP);
 	}
 	
 
