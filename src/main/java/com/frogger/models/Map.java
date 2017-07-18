@@ -58,6 +58,13 @@ public class Map {
 		frog.setPosition(frog.getPosition().getX(),frog.getPosition().getY()+Game.Gheight/Map.nbLanes);
 	}
 	
+	public void moveFrogRight() {
+		frog.setPosition(frog.getPosition().getX()-Game.Gheight/15,frog.getPosition().getY());
+	}
+	
+	public void moveFrogLeft() {
+		frog.setPosition(frog.getPosition().getX()+Game.Gheight/15,frog.getPosition().getY());
+	}
 	public Frog getFrog() {
 		return frog;
 	}
@@ -80,11 +87,29 @@ public class Map {
 			break;
 		case Lane.COLLISION_WATER:
 			// end game
+			frog.looseLife();
+			frog.setPosition(Game.Gwidth/2, Game.Gheight - frog.getImg().getHeight());
 			break;
 		case Lane.COLLISION_WOOD:
 			// end move frog with wood
+			if(lanes.get(currentLane).getDirection()){
+				if(frog.getPosition().getX()-lanes.get(currentLane).getSpeed()<0-frog.getImg().getWidth()){
+					frog.looseLife();
+					frog.setPosition(Game.Gwidth/2, Game.Gheight - frog.getImg().getHeight());
+				}else{
+					frog.setPosition(frog.getPosition().getX()-lanes.get(currentLane).getSpeed(), frog.getPosition().getY());
+				}
+			}else{
+				if(frog.getPosition().getX()-lanes.get(currentLane).getSpeed()>Game.Gwidth){
+					frog.looseLife();
+					frog.setPosition(Game.Gwidth/2, Game.Gheight - frog.getImg().getHeight());
+				}else{
+					frog.setPosition(frog.getPosition().getX()+lanes.get(currentLane).getSpeed(), frog.getPosition().getY());
+				}
+			}
 			break;
 		case Lane.COLLISION_END:
+				frog.isArrived = true;
 			// end game with score ++
 			break;
 		default:
@@ -93,4 +118,6 @@ public class Map {
 		}
 		frog.draw(g);
 	}
+
+
 }

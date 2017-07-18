@@ -28,7 +28,7 @@ public abstract class Lane {
 	}
 
 
-	public boolean isDirection() {
+	public boolean getDirection() {
 		return direction;
 	}
 	public void setDirection(boolean direction) {

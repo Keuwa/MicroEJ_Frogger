@@ -36,7 +36,7 @@ public class MenuPage extends Page{
 			@Override
 			public void onClick() {
 				// TODO Auto-generated method stub
-				Program.show(new GamePage());
+				Program.show(new ScorePage());
 				System.out.println("clicked");
 			}
 		});

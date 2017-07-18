@@ -12,10 +12,12 @@ public class Frog {
 	int life = 5;
 	boolean bonusLife = false;
 	Image img;
+	boolean isArrived;
 	
 	public Frog() throws IOException {
 		// TODO Auto-generated constructor stub
 		img = Image.createImage("/images/frog_idle.png");
+		isArrived = false;
 	}
 	
 	
@@ -67,6 +69,18 @@ public class Frog {
 	public void draw(GraphicsContext g) {
 		g.drawImage(img,position.getX(), position.getY(), GraphicsContext.TOP);
 	}
+
+
+	public boolean isArrived() {
+		return isArrived;
+	}
+
+
+	public void setArrived(boolean isArrived) {
+		this.isArrived = isArrived;
+	}
+	
+	
 	
 
 }

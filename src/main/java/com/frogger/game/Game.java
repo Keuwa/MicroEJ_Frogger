@@ -2,6 +2,10 @@ package com.frogger.game;
 
 import java.util.Random;
 import com.frogger.models.Map;
+import com.frogger.score.ScoreList;
+
+import ej.microui.display.Colors;
+import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
 import ej.microui.event.EventGenerator;
@@ -16,10 +20,13 @@ public class Game extends Widget implements Element {
 	public static int MIN_WIDTH = 100;
 	public static int Gheight;
 	public static int Gwidth;
+	boolean finalScore = false;
 	int jumps = 0;
 	int score = 0;
 	int originY = 0;
 	int newY = 0;
+	int originX = 0;
+	int newX = 0;
 	Map map;
 	public static Random random = new Random();
 	
@@ -77,17 +84,27 @@ public class Game extends Widget implements Element {
 
 			if (Pointer.isPressed(event) == true) {
 				originY = p.getAbsoluteY();
+				originX = p.getAbsoluteX();
 			}
 
 			
 			if(Pointer.isReleased(event) == true) {
 				newY = p.getAbsoluteY();
+				newX = p.getAbsoluteX();
 				
 				if(originY - newY > 100) {
 					map.moveFrogUp();
+					score+=10;
 				} 
 				else if (newY - originY > 100) {
 					map.moveFrogDown();
+					score-=10;
+				}
+				else if(originX - newX > 50){
+					map.moveFrogRight();
+				}
+				else if (newX - originX > 50) {
+					map.moveFrogLeft();
 				}
 			}
 		}
@@ -98,8 +115,35 @@ public class Game extends Widget implements Element {
 	@Override
 	public void render(GraphicsContext g) {
 		if (getLife() <= 0) {
-			// FIN DU GAME
-		} 
+			// LOOSE
+			g.fillRect(0, 0, Game.Gwidth,  Game.Gheight);
+
+			// use White color to render text
+			g.setColor(Colors.WHITE);
+			final Font sourceSansPro = Font.getFont(Font.LATIN, 24, Font.STYLE_PLAIN);		
+			g.setFont(sourceSansPro);
+
+			g.drawString("You lose !", Game.Gwidth / 2, Game.Gheight / 2,
+					GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+
+			
+		}else if(map.getFrog().isArrived()){
+			if(!finalScore){
+				score *= map.getFrog().getLife();
+				ScoreList scoreList = ScoreList.getInstance();
+				scoreList.addScore(score);
+				finalScore = true;
+			}
+			g.fillRect(0, 0, Game.Gwidth,  Game.Gheight);
+
+			// use White color to render text
+			g.setColor(Colors.WHITE);
+			final Font sourceSansPro = Font.getFont(Font.LATIN, 24, Font.STYLE_PLAIN);		
+			g.setFont(sourceSansPro);
+
+			g.drawString("You win ! Youre score is : " + score, Game.Gwidth / 2, Game.Gheight / 2,
+					GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		}
 		else {
 			map.draw(g);
 		}

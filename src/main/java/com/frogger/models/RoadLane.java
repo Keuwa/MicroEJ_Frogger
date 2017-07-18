@@ -13,15 +13,15 @@ public class RoadLane extends Lane{
 	private boolean createCar = true;
 	public RoadLane(int pos) {
 		super(pos);
-		initCars(pos * 2);
+		initCars();
 		speed = Game.random.nextInt(2) + 1;
 		
 		// TODO Auto-generated constructor stub
 	}
 	
-	private void initCars(int nbVoirture) {
+	private void initCars() {
 		int startX = Game.random.nextInt(Game.Gwidth);
-		int nbCar = 5;//Game.random.nextInt(Game.Gwidth/65) + 3 ;
+		int nbCar = 4;
 		for(int i = 1 ; i < nbCar ; i ++) {
 			Car car = new Car();
 			int newSpace = Game.random.nextInt(35) + car.getImage().getWidth();
