@@ -47,8 +47,7 @@ public class MenuPage extends Page{
 			@Override
 			public void onClick() {
 				// TODO Auto-generated method stub
-				Program.show(new GamePage());
-				System.out.println("clicked");
+				Program.show(new SettingPage());
 			}
 		});
 		
@@ -72,8 +71,6 @@ public class MenuPage extends Page{
 		container.add(scoreButton);
 		container.add(settingsButton);
 		container.add(exitButton);
-
-		//setWidget(button);
-		setWidget(container);	}
-
+		setWidget(container);	
+	}
 }

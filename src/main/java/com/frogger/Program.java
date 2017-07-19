@@ -111,14 +111,21 @@ public class Program implements Activity {
 		EditableStyle transpStyle = new EditableStyle();
 		EditableStyle nobodyStyle = new EditableStyle();
 		EditableStyle someoneStyle = new EditableStyle();
+		EditableStyle settingStyle = new EditableStyle();
+		EditableStyle clickSettingStyle = new EditableStyle();
 		
 		TypeSelector btnSelector = new TypeSelector(Button.class);
 		TypeSelector lblSelector = new TypeSelector(Label.class);
 		ClassSelector nobodySelector = new ClassSelector("NOBODY");
 		ClassSelector someoneSelector = new ClassSelector("SOMEONE");
+		ClassSelector settingSelector = new ClassSelector("SETTING");
 		ChildCombinator parentBtnSelector = new ChildCombinator(btnSelector, lblSelector);
 		AndCombinator parentBtnClickedSelector =  new AndCombinator(parentBtnSelector, new StateSelector(State.Active));
 		AndCombinator clickedSelector = new AndCombinator(btnSelector, new StateSelector(State.Active));
+		AndCombinator clickedSettingSelector = new AndCombinator(settingSelector, new StateSelector(State.Active));
+
+		SimpleImageBackground btnImgBkgSetting = new SimpleImageBackground
+				(Image.createImage("/images/setting.png"), GraphicsContext.HCENTER | GraphicsContext.VCENTER, true);
 		
 		SimpleImageBackground btnImgBkg = new SimpleImageBackground
 				(Image.createImage("/images/button.png"), GraphicsContext.HCENTER | GraphicsContext.VCENTER, true);
@@ -146,8 +153,17 @@ public class Program implements Activity {
 		clickedStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		lblClickedStyle.setPadding(clickedPadding);
 		
+		settingStyle.setBackground(btnImgBkgSetting);
+		settingStyle.setPadding(new ComplexOutline(0,0,0,0));
+		settingStyle.setMargin(new ComplexOutline(0,3,0,3));
+		clickSettingStyle.setBackground(btnImgBkgSetting);
+		clickSettingStyle.setPadding(new ComplexOutline(0,0,0,0));
+		clickSettingStyle.setMargin(new ComplexOutline(0,3,0,3));
+
 		transpStyle.setBackground(NoBackground.NO_BACKGROUND);
 		
+		sts.addRule(clickedSettingSelector, clickSettingStyle);
+		sts.addRule(settingSelector, settingStyle);
 		sts.addRule(btnSelector, btnStyle);
 		sts.addRule(clickedSelector, clickedStyle);
 		sts.addRule(parentBtnSelector, transpStyle);

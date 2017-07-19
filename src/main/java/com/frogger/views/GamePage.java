@@ -2,6 +2,7 @@ package com.frogger.views;
 
 import com.frogger.Program;
 import com.frogger.game.Game;
+import com.frogger.setting.Setting;
 
 import ej.bon.Timer;
 import ej.bon.TimerTask;
@@ -35,7 +36,7 @@ public class GamePage extends Page{
 		// init params
 		splitGame = new Split(true,0.75f);
 		list = new List(false);
-		game = new Game(6, 4);
+		game = new Game(Setting.getInstance().getNbRoad(), Setting.getInstance().getNbWater());
 		score = new Label("");
 		life = new Label("");
 		back = new Button("Back");

@@ -93,12 +93,16 @@ public class Game extends Widget implements Element {
 				newX = p.getAbsoluteX();
 				
 				if(originY - newY > 100) {
-					map.moveFrogUp();
-					score+=10;
+					boolean move = map.moveFrogUp();
+					if (move == true) {
+						score+=10;
+					}
 				} 
 				else if (newY - originY > 100) {
-					map.moveFrogDown();
-					score-=10;
+					boolean move = map.moveFrogDown();
+					if (move == true) {
+						score-=10;
+					}
 				}
 				else if(originX - newX > 50){
 					map.moveFrogRight();

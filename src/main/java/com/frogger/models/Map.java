@@ -50,21 +50,42 @@ public class Map {
 		return lanes;
 	}
 	
-	public void moveFrogUp() {
-		frog.setPosition(frog.getPosition().getX(),frog.getPosition().getY()-Game.Gheight/Map.nbLanes);
+	public boolean moveFrogUp() {
+		int move = frog.getPosition().getY()-Game.Gheight/Map.nbLanes;
+		if (move > 0) {
+			frog.setPosition(frog.getPosition().getX(), move);
+			return true;
+		}
+		return false;
 	}
 	
-	public void moveFrogDown() {
-		frog.setPosition(frog.getPosition().getX(),frog.getPosition().getY()+Game.Gheight/Map.nbLanes);
+	public boolean moveFrogDown() {
+		int move = frog.getPosition().getY()+Game.Gheight/Map.nbLanes;
+		if (move < Game.Gheight) {
+			frog.setPosition(frog.getPosition().getX(), move);
+			return true;
+		}
+		return false;
 	}
 	
-	public void moveFrogRight() {
-		frog.setPosition(frog.getPosition().getX()-Game.Gheight/15,frog.getPosition().getY());
+	public boolean moveFrogRight() {
+		int move = frog.getPosition().getX()-Game.Gheight/15;
+		if (move > 0) {
+			frog.setPosition(move, frog.getPosition().getY());
+			return true;
+		}
+		return false;
 	}
 	
-	public void moveFrogLeft() {
-		frog.setPosition(frog.getPosition().getX()+Game.Gheight/15,frog.getPosition().getY());
+	public boolean moveFrogLeft() {
+		int move = frog.getPosition().getX()+Game.Gheight/15;
+		if (move < Game.Gwidth) {
+			frog.setPosition(move, frog.getPosition().getY());
+			return true;
+		}
+		return false;
 	}
+	
 	public Frog getFrog() {
 		return frog;
 	}

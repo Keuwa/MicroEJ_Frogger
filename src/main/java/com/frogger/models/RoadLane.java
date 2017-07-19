@@ -3,6 +3,7 @@ package com.frogger.models;
 import java.util.ArrayList;
 
 import com.frogger.game.Game;
+import com.frogger.setting.Setting;
 
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
@@ -21,8 +22,8 @@ public class RoadLane extends Lane{
 	
 	private void initCars() {
 		int startX = Game.random.nextInt(Game.Gwidth);
-		int nbCar = 4;
-		for(int i = 1 ; i < nbCar ; i ++) {
+		int nbCar = Setting.getInstance().getMaxCar();
+		for(int i = 1 ; i < nbCar+1 ; i ++) {
 			Car car = new Car();
 			int newSpace = Game.random.nextInt(35) + car.getImage().getWidth();
 			car.setPosition(startX - car.getImage().getWidth() + (car.getImage().getWidth() * i) + (newSpace * i), position.getY());

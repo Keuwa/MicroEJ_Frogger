@@ -3,6 +3,7 @@ package com.frogger.models;
 import java.util.ArrayList;
 
 import com.frogger.game.Game;
+import com.frogger.setting.Setting;
 
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
@@ -22,7 +23,7 @@ public class WaterLane extends Lane{
 	
 	private void initWoods() {
 		int startX = Game.random.nextInt(Game.Gwidth);
-		int nbWood = 4;
+		int nbWood = Setting.getInstance().getMaxWood();
 		for(int i = 1 ; i < nbWood; i ++) {
 			Wood wood = new Wood(direction);
 			int newSpace = Game.random.nextInt(35) + wood.getImage().getWidth();

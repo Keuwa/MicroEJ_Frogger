@@ -2,6 +2,7 @@ package com.frogger.models;
 
 import java.io.IOException;
 
+import com.frogger.setting.Setting;
 import com.frogger.utils.Position;
 
 import ej.microui.display.GraphicsContext;
@@ -16,6 +17,7 @@ public class Frog {
 	
 	public Frog() throws IOException {
 		// TODO Auto-generated constructor stub
+		life = Setting.getInstance().getLife();
 		img = Image.createImage("/images/frog_idle.png");
 		isArrived = false;
 	}
