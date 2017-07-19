@@ -25,7 +25,7 @@ public class RoadLane extends Lane{
 		int nbCar = Setting.getInstance().getMaxCar();
 		for(int i = 1 ; i < nbCar+1 ; i ++) {
 			Car car = new Car();
-			int newSpace = Game.random.nextInt(35) + car.getImage().getWidth();
+			int newSpace = Game.random.nextInt(35) + car.getImage().getWidth() + 10;
 			car.setPosition(startX - car.getImage().getWidth() + (car.getImage().getWidth() * i) + (newSpace * i), position.getY());
 			cars.add(car);
 		}
@@ -49,6 +49,8 @@ public class RoadLane extends Lane{
 	@Override
 	public void draw(GraphicsContext g) {
 		// TODO Auto-generated method stub
+		g.setColor(Colors.BLACK);
+		g.drawRect(position.getX(),position.getY(), Game.Gwidth, Game.Gheight/Map.nbLanes);
 		g.setColor(Colors.GRAY);
 		g.fillRect(position.getX(),position.getY(), Game.Gwidth, Game.Gheight/Map.nbLanes);
 		for(Car car: cars) {

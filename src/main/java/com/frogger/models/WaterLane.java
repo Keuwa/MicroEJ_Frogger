@@ -44,6 +44,8 @@ public class WaterLane extends Lane{
 
 	@Override
 	public void draw(GraphicsContext g) {
+		g.setColor(Colors.NAVY);
+		g.drawRect(position.getX(),position.getY(), Game.Gwidth, Game.Gheight/Map.nbLanes);
 		g.setColor(Colors.BLUE);
 		g.fillRect(position.getX(),position.getY(), Game.Gwidth, Game.Gheight/Map.nbLanes);
 		for(Wood wood: woods) {

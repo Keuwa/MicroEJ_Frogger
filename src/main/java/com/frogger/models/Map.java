@@ -103,13 +103,13 @@ public class Map {
 		switch (collision) {
 		case Lane.COLLISION_CAR:
 			frog.looseLife();
-			frog.setPosition(Game.Gwidth/2, Game.Gheight - frog.getImg().getHeight());
+			frog.setPosition(Game.Gwidth/2, lanes.get(0).getPosition().getY());
 			// end game
 			break;
 		case Lane.COLLISION_WATER:
 			// end game
 			frog.looseLife();
-			frog.setPosition(Game.Gwidth/2, Game.Gheight - frog.getImg().getHeight());
+			frog.setPosition(Game.Gwidth/2, lanes.get(0).getPosition().getY());
 			break;
 		case Lane.COLLISION_WOOD:
 			// end move frog with wood

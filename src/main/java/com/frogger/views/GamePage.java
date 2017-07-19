@@ -58,11 +58,6 @@ public class GamePage extends Page{
 			@Override
 			public void run() {
 				if (live == true) {
-					try {
-						game.run();
-					} catch (Exception e) {
-						System.err.println(e.getMessage());
-					}
 					score.setText("Score: " + String.valueOf(game.getScore())); 
 					life.setText("Life: " + String.valueOf(game.getLife()));
 					repaint();	
@@ -71,7 +66,6 @@ public class GamePage extends Page{
 			
 		}, 0, 50);
 		
-		// set container
 		list.add(life);
 		list.add(score);
 		list.add(back);
@@ -79,6 +73,5 @@ public class GamePage extends Page{
 		splitGame.setLast(list);
 		//set widget
 		this.setWidget(splitGame);
-
 	}
 }

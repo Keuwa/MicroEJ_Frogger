@@ -119,7 +119,6 @@ public class Game extends Widget implements Element {
 	@Override
 	public void render(GraphicsContext g) {
 		if (getLife() <= 0) {
-			// LOOSE
 			renderLoose(g);			
 		}else if(map.getFrog().isArrived()){
 			renderWin(g);
