@@ -4,6 +4,7 @@ import com.frogger.Program;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.exit.ExitHandler;
+import ej.widget.basic.Label;
 import ej.widget.composed.Button;
 import ej.widget.container.List;
 import ej.widget.listener.OnClickListener;
@@ -15,10 +16,11 @@ public class MenuPage extends Page{
 	private Button settingsButton;
 	private Button scoreButton;
 	private List container;
+	private Label title;
 	
 	public MenuPage() {
 		container = new List(false);
-		
+		title = new Label("FROGGER !");
 		button = new Button("Game");
 		button.addOnClickListener(new OnClickListener() {
 			
@@ -66,7 +68,10 @@ public class MenuPage extends Page{
 				}
 			  }
 		});
+		
+		title.addClassSelector("TITLE");
 
+		container.add(title);
 		container.add(button);
 		container.add(scoreButton);
 		container.add(settingsButton);

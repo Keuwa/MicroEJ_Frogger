@@ -112,10 +112,12 @@ public class Program implements Activity {
 		EditableStyle nobodyStyle = new EditableStyle();
 		EditableStyle someoneStyle = new EditableStyle();
 		EditableStyle settingStyle = new EditableStyle();
+		EditableStyle titleStyle = new EditableStyle();
 		EditableStyle clickSettingStyle = new EditableStyle();
 		
 		TypeSelector btnSelector = new TypeSelector(Button.class);
 		TypeSelector lblSelector = new TypeSelector(Label.class);
+		ClassSelector titleSelector = new ClassSelector("TITLE");
 		ClassSelector nobodySelector = new ClassSelector("NOBODY");
 		ClassSelector someoneSelector = new ClassSelector("SOMEONE");
 		ClassSelector settingSelector = new ClassSelector("SETTING");
@@ -153,6 +155,7 @@ public class Program implements Activity {
 		clickedStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		lblClickedStyle.setPadding(clickedPadding);
 		
+		titleStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		settingStyle.setBackground(btnImgBkgSetting);
 		settingStyle.setPadding(new ComplexOutline(0,0,0,0));
 		settingStyle.setMargin(new ComplexOutline(0,3,0,3));
@@ -162,6 +165,7 @@ public class Program implements Activity {
 
 		transpStyle.setBackground(NoBackground.NO_BACKGROUND);
 		
+		sts.addRule(titleSelector, titleStyle);
 		sts.addRule(clickedSettingSelector, clickSettingStyle);
 		sts.addRule(settingSelector, settingStyle);
 		sts.addRule(btnSelector, btnStyle);
